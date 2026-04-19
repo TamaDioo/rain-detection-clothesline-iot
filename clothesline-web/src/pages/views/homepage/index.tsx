@@ -2,11 +2,25 @@ import React, { useState, useEffect } from 'react';
 import styles from './homepage.module.scss';
 import { 
     FaMapMarkerAlt, FaThermometerHalf, FaTint, 
-    FaWind, FaCloud, FaSignOutAlt, FaSun, 
+    FaWind, FaCloud, FaCloudSun, FaSignOutAlt, FaSun, 
     FaClock, FaCalendarAlt, FaArrowsAltH, FaArrowDown
 } from 'react-icons/fa';
+import { IoIosRainy } from 'react-icons/io';
+import { SiRainyun } from "react-icons/si";
 
-const TampilanHomepage = () => {
+type WeatherData = {
+    time: string;
+    temperature: number;
+    humidity: number;
+    precipitation: number;
+    cloudcover: number;
+    windspeed: number;
+}
+
+const TampilanHomepage = ({ weathers }: { weathers: WeatherData[]}) => {
+
+    const weatherNow = weathers && weathers.length > 0 ? weathers[0] : null;
+
     const [railPosition, setRailPosition] = useState(0); 
     const [time, setTime] = useState<Date>(new Date());
     
@@ -76,27 +90,53 @@ const TampilanHomepage = () => {
             <section className={styles.card}>
             <div className={styles.cardHeader}>
                 <h2 className={styles.cardTitle}>Kondisi Cuaca</h2>
-                <span className={styles.badgeOptimal}>Optimal</span>
+                {(weatherNow?.cloudcover ?? 0) < 30 && (weatherNow?.precipitation ?? 0) < 0.5 ? (
+                    <span className={styles.badgeOptimal}>Optimal</span>    
+                ) : (weatherNow?.cloudcover ?? 0) > 30 && (weatherNow?.precipitation ?? 0) < 0.5 ? (
+                    <span className={styles.badgeKurangOptimal}>Kurang Optimal</span>
+                ) : (
+                    <span className={styles.badgeKBuruk}>Buruk</span>
+                )}
             </div>
             <div className={styles.cardBody}>
                 <div className={styles.locationTag}><FaMapMarkerAlt /> Kota Malang</div>
                 <div className={styles.weatherMain}>
                 <div className={styles.tempDisplay}>
-                    <FaThermometerHalf className={styles.iconPurple} /> 29.12<small>°C</small>
+                    <FaThermometerHalf className={styles.iconPurple} /> { weatherNow ? weatherNow.temperature : '-'}<small>°C</small>
                 </div>
-                <FaSun className={styles.sunIcon} />
+                {(weatherNow?.cloudcover ?? 0) > 50 ? (
+                    <FaCloud className={styles.cloudyIcon}/>
+                ) : (weatherNow?.cloudcover ?? 0) > 15 ? (
+                    <FaCloudSun className={styles.cloudySunIcon}/>
+                ) : (weatherNow?.cloudcover ?? 0) > 50 && (weatherNow?.precipitation ?? 0) > 0.5 ? (
+                    <IoIosRainy className={styles.rainIcon}/>
+                ) : (weatherNow?.cloudcover ?? 0) < 10 && (weatherNow?.precipitation ?? 0) > 0.5 ? (
+                    <SiRainyun className={styles.rainnyCloudyIcon}/>
+                ) : (
+                    <FaSun className={styles.sunIcon}/>
+                )}
                 </div>
                 <div className={styles.weatherGrid}>
-                <div className={styles.metric}><FaTint /> <span>Kelembaban</span> <strong>58%</strong></div>
-                <div className={styles.metric}><FaWind /> <span>Angin</span> <strong>3.48 km/h</strong></div>
-                <div className={styles.metric}><FaCloud /> <span>Awan</span> <strong>10%</strong></div>
+                <div className={styles.metric}><FaTint /> <span>Kelembaban</span> <strong>{ weatherNow ? weatherNow.humidity : '-'}%</strong></div>
+                <div className={styles.metric}><FaWind /> <span>Angin</span> <strong>{ weatherNow ? weatherNow.windspeed : '-'} km/h</strong></div>
+                <div className={styles.metric}><FaCloud /> <span>Awan</span> <strong>{ weatherNow ? weatherNow.cloudcover : '-'}%</strong></div>
                 </div>
             </div>
             <div className={styles.separator}></div>
             <div className={styles.cardFooter}>
-                <div className={styles.statusBanner}>
-                ✓ Kondisi sangat baik untuk menjemur pakaian.
-                </div>
+                {(weatherNow?.cloudcover ?? 0) < 30 && (weatherNow?.precipitation ?? 0) < 0.5 ? (
+                    <div className={styles.statusBannerSuccess}>
+                        ✓ Kondisi sangat baik untuk menjemur pakaian.
+                    </div>       
+                ) : (weatherNow?.cloudcover ?? 0) > 30 && (weatherNow?.precipitation ?? 0) < 0.5 ? (
+                    <div className={styles.statusBannerWarning}>
+                        ⚠️ Kondisi cukup baik untuk menjemur pakaian.
+                    </div>
+                ) : (
+                    <div className={styles.statusBannerError}>
+                        ✗ Kondisi tidak baik untuk menjemur pakaian.
+                    </div>
+                )} 
             </div>
             </section>
 
@@ -148,8 +188,17 @@ const TampilanHomepage = () => {
                 </div>
                 <div className={styles.statusTile}>
                     <p>Sensor Hujan</p>
-                    <h3 className={styles.textGreen}>Kering</h3>
-                    <p className={styles.subtext}>Tidak ada tetesan terdeteksi</p>
+                    {(weatherNow?.precipitation ?? 0) > 0.5 ? (
+                        <>
+                        <h3 className={styles.textRed}>Hujan</h3>
+                        <p className={styles.subtext}>Terdapat tetesan air.</p>
+                        </>
+                    ):(
+                        <>
+                        <h3 className={styles.textGreen}>Kering</h3>
+                        <p className={styles.subtext}>Tidak ada tetesan terdeteksi</p>
+                        </>
+                    )}
                 </div>
                 <div className={styles.statusTile}>
                     <p>Siklus</p>
