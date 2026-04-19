@@ -25,20 +25,20 @@ export default function LandingPage() {
       </Head>
 
       <div
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-slate-50 text-slate-800 font-sans flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-slate-50 text-slate-800 font-sans flex flex-col overflow-x-hidden`}
       >
         {/* Navbar */}
-        <nav className="w-full px-6 py-6 flex justify-between items-center max-w-6xl mx-auto flex-shrink-0">
+        <nav className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-5 sm:py-6 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2 text-indigo-600">
             <FaCloudSun className="text-3xl" />
             <span className="text-xl font-bold tracking-tight">
               ClothesLine
             </span>
           </div>
-          <div className="flex gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <Link
               href="/auth/login"
-              className="px-5 py-2 font-medium text-slate-600 hover:text-indigo-600 transition-colors flex items-center"
+              className="px-4 sm:px-5 py-2 font-medium text-slate-600 hover:text-indigo-600 transition-colors"
             >
               Login
             </Link>
@@ -52,49 +52,50 @@ export default function LandingPage() {
         </nav>
 
         {/* Hero Section */}
-        <main className="flex-1 flex flex-col items-center justify-center px-6 text-center w-full max-w-4xl mx-auto py-12 md:py-20">
-          <div className="inline-flex items-center justify-center gap-2 px-4 py-1.5 rounded-full bg-indigo-100 text-indigo-700 text-sm font-semibold mb-8">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-indigo-500"></span>
-            </span>
-            Sistem IoT Aktif & Siaga
-          </div>
+        <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-10 md:py-16 lg:py-20 flex-1 flex items-center justify-center">
+          <section className="w-full max-w-4xl text-center">
+            <div className="inline-flex items-center justify-center gap-2 px-4 py-1.5 rounded-full bg-indigo-100 text-indigo-700 text-sm font-semibold mb-8">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-indigo-500"></span>
+              </span>
+              Sistem IoT Aktif & Siaga
+            </div>
 
-          <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 leading-tight mb-6">
-            Jemuran Pintar, <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-emerald-500">
-              Pakaian Selalu Aman.
-            </span>
-          </h1>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 leading-tight mb-6">
+              Jemuran Pintar, <br />
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-600 to-emerald-500">
+                Pakaian Selalu Aman.
+              </span>
+            </h1>
 
-          <p className="text-lg md:text-xl text-slate-600 mb-10 max-w-2xl leading-relaxed mx-auto">
-            Tidak perlu khawatir jemuran basah saat hujan turun tiba-tiba. Smart
-            Clothesline mendeteksi cuaca secara real-time dan mengamankan
-            pakaian Anda secara otomatis.
-          </p>
+            <p className="text-base sm:text-lg md:text-xl text-slate-600 mb-10 max-w-2xl leading-relaxed mx-auto">
+              Tidak perlu khawatir jemuran basah saat hujan turun tiba-tiba.
+              Smart Clothesline mendeteksi cuaca secara real-time dan
+              mengamankan pakaian Anda secara otomatis.
+            </p>
 
-          {/* Wrapper Tombol Diperbaiki */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
-            <Link
-              href="/homepage"
-              className="flex items-center justify-center gap-2 px-8 py-4 bg-indigo-600 text-white text-lg font-semibold rounded-full hover:bg-indigo-700 transition-all hover:scale-105 shadow-lg shadow-indigo-200 w-full sm:w-auto min-w-[240px]"
-            >
-              Lihat Dashboard <FaArrowRight />
-            </Link>
-            <Link
-              href="/auth/register"
-              className="flex items-center justify-center gap-2 px-8 py-4 bg-white text-slate-700 border border-slate-200 text-lg font-semibold rounded-full hover:bg-slate-50 transition-all shadow-sm w-full sm:w-auto min-w-[240px]"
-            >
-              Mulai Sekarang
-            </Link>
-          </div>
+            <div className="mx-auto w-full max-w-2xl flex flex-col sm:flex-row sm:justify-center items-stretch sm:items-center gap-4">
+              <Link
+                href="/homepage"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-indigo-600 text-white text-lg font-semibold rounded-full hover:bg-indigo-700 transition-all hover:scale-105 shadow-lg shadow-indigo-200 w-full sm:w-auto sm:min-w-55"
+              >
+                Lihat Dashboard <FaArrowRight />
+              </Link>
+              <Link
+                href="/auth/register"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-slate-700 border border-slate-200 text-lg font-semibold rounded-full hover:bg-slate-50 transition-all shadow-sm w-full sm:w-auto sm:min-w-55"
+              >
+                Mulai Sekarang
+              </Link>
+            </div>
+          </section>
         </main>
 
         {/* Feature Highlights */}
-        <div className="w-full bg-white border-t border-slate-100 py-16 flex-shrink-0">
-          <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div className="flex flex-col items-center justify-center p-6">
+        <div className="w-full bg-white border-t border-slate-100 py-14 md:py-16 shrink-0">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 text-center">
+            <div className="flex flex-col items-center justify-center p-6 rounded-2xl border border-slate-100 bg-slate-50/70 h-full">
               <div className="h-16 w-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl mb-4">
                 <FaTint />
               </div>
@@ -104,7 +105,7 @@ export default function LandingPage() {
                 hitungan detik.
               </p>
             </div>
-            <div className="flex flex-col items-center justify-center p-6">
+            <div className="flex flex-col items-center justify-center p-6 rounded-2xl border border-slate-100 bg-slate-50/70 h-full">
               <div className="h-16 w-16 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-2xl mb-4">
                 <FaCloudSun />
               </div>
@@ -114,7 +115,7 @@ export default function LandingPage() {
                 pengeringan.
               </p>
             </div>
-            <div className="flex flex-col items-center justify-center p-6">
+            <div className="flex flex-col items-center justify-center p-6 rounded-2xl border border-slate-100 bg-slate-50/70 h-full">
               <div className="h-16 w-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl mb-4">
                 <FaWind />
               </div>
@@ -128,12 +129,12 @@ export default function LandingPage() {
         </div>
 
         {/* Footer */}
-        <footer className="w-full bg-slate-900 text-slate-400 py-8 text-center text-sm flex-shrink-0">
+        {/* <footer className="w-full bg-slate-900 text-slate-400 py-8 text-center text-sm shrink-0">
           <p>
             © {new Date().getFullYear()} PBL Kelompok TI-3F Polinema. All rights
             reserved.
           </p>
-        </footer>
+        </footer> */}
       </div>
     </>
   );
