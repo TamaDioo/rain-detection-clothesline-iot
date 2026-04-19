@@ -15,32 +15,26 @@ const ViewLogin = () => {
         event.preventDefault();
         setError("");
         setIsLoading(true);
+
         const formData = new FormData(event.currentTarget);
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
-        try {
-            const res = await signIn("credentials", {
-                redirect: false,
-                email,
-                password,
-                callbackUrl,
-            });
 
-            // console.log("SignIn response:", res);
-            if (!res?.error) {
-                setIsLoading(false);
-                push("/homepage");
+        const res = await signIn("credentials", {
+            redirect: false,
+            email,
+            password,
+            callbackUrl,
+        });
+
+            if (res?.ok) {
+                push(callbackUrl);
             } else {
-                setIsLoading(false);
-                // console.log("Login error:", res.error);
-                setError(res?.error || "Login failed");
+                setError("Email atau password salah");
             }
-        } catch (error) {
-            setIsLoading(false);
-            setError("Wrong email or password");
-        }
 
-    };
+            setIsLoading(false);
+        };
     return (
         <div className={styles.container}>
             {error && <p className={styles.loginError}>{error}</p>}
@@ -88,7 +82,8 @@ const ViewLogin = () => {
                 </div>
 
                 <p className={styles.footerText}>
-                    Don't have an account? <Link href="/auth/register">Sign up here</Link>
+                    {"Don't have an account?"}{" "}
+                    <Link href="/auth/register">Sign up here</Link>
                 </p>
             </div>
         </div>
