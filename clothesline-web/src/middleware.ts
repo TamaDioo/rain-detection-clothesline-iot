@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import withAuth from "./pages/middleware/withAuth";
+import withAuth from "./middleware/withAuth";
 
 function middleware(request: NextRequest) {
   return NextResponse.next();
