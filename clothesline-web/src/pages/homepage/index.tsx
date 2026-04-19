@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-const homepage = () => {
+const Homepage = () => {
 
     const { push } = useRouter();
     const { data, error, isLoading } = useSWR('/api/weather', fetcher, {
@@ -20,4 +20,4 @@ const homepage = () => {
     );
 };
 
-export default homepage;
+export default Homepage;
