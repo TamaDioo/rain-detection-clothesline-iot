@@ -17,6 +17,12 @@ const nextConfig: NextConfig = {
         hostname: "ik.imagekit.io",
         port: "",
         pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.shadcnstudio.com",
+        port: "",
+        pathname: "/**",
       }
     ],
   }

@@ -6,7 +6,6 @@ import Image from 'next/image'
 import { TextEffect } from '@/components/motion-primitives/text-effect'
 import { AnimatedGroup } from '@/components/motion-primitives/animated-group'
 import { HeroHeader } from "@/components/landing/header"
-import { Variants } from "framer-motion";
 import { 
   Zap, 
   Flame, 
@@ -15,8 +14,7 @@ import {
   Tv, 
   Cpu, 
   Cloud,
-  Play,
-  Wind
+  Play
 } from "lucide-react"
 
 // Mapping manual agar kamu tidak perlu mengubah nama komponen di bagian JSX bawah

@@ -1,12 +1,10 @@
-import Image from "next/image"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
-import { ArrowRight, CloudRain, Sun, Wind, Activity, CheckCircle2 } from "lucide-react"
+import { CloudRain, Sun, Wind, Activity, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { TextEffect } from '@/components/motion-primitives/text-effect'
 import { AnimatedGroup } from '@/components/motion-primitives/animated-group'
 import { HeroHeader } from "@/components/landing/header"
-import { Variants } from "framer-motion"
 
 const transitionVariants: any = {
   item: {
@@ -195,7 +193,7 @@ export default function Home() {
                     "Remote servo control from anywhere"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-6 h-6 text-blue-500 flex-shrink-0" />
+                      <CheckCircle2 className="w-6 h-6 text-blue-500 shrink-0" />
                       <span className="text-foreground font-medium">{item}</span>
                     </li>
                   ))}
@@ -207,7 +205,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="relative">
-                <div className="aspect-[4/3] rounded-2xl bg-muted/50 border overflow-hidden shadow-2xl flex items-center justify-center">
+                <div className="aspect-4/3 rounded-2xl bg-muted/50 border overflow-hidden shadow-2xl flex items-center justify-center">
                   <div className="grid grid-cols-2 gap-4 w-full h-full p-8">
                     <div className="bg-background rounded-xl p-4 flex flex-col justify-between shadow-sm border">
                       <div className="text-sm font-medium text-muted-foreground">Temperature</div>

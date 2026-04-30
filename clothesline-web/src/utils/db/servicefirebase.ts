@@ -67,6 +67,7 @@ export async function signUp(
       message: "User registered successfully",
     });
   } catch (error) {
+    console.error("Firebase Service Error:", error);
     callback({
       status: "error",
       message: "Failed to register user",
@@ -109,7 +110,7 @@ export async function signInWithOAuth(
       });
     }
   } catch (error: any) {
-    // Tangani error di sini
+    console.error("Firebase Service Error:", error);
     callback({
       status: false,
       message: `Failed to register user with ${provider}`,

@@ -39,14 +39,12 @@ const chartData = [
 export default function Dashboard() {
   const [servoMode, setServoMode] = useState("auto")
   const [servoState, setServoState] = useState("extended")
-  const [mounted, setMounted] = useState(false)
-  const [time, setTime] = useState(new Date())
+  const [time, setTime] = useState<Date | null>(null)
 
   useEffect(() => {
-    setMounted(true)
-    const timer = setInterval(() => {
-      setTime(new Date())
-    }, 1000)
+    const tick = () => setTime(new Date())
+    tick()
+    const timer = setInterval(tick, 1000)
     return () => clearInterval(timer)
   }, [])
 
@@ -72,13 +70,23 @@ export default function Dashboard() {
               </Breadcrumb>
             </div>
             <div className="flex items-center gap-4">
-              {mounted && (
+              {/* HANYA render seluruh blok jam jika 'time' tidak null */}
+              {time && (
                 <div className="hidden sm:flex flex-col items-end justify-center h-full">
                   <div className="font-semibold text-sm text-foreground leading-tight">
-                    {time.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                    {time.toLocaleTimeString('id-ID', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      second: '2-digit'
+                    })}
                   </div>
                   <div className="text-[11px] text-muted-foreground font-medium leading-tight">
-                    {time.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' })}
+                    {time.toLocaleDateString('id-ID', {
+                      weekday: 'long',
+                      day: 'numeric',
+                      month: 'short',
+                      year: 'numeric'
+                    })}
                   </div>
                 </div>
               )}
@@ -114,7 +122,7 @@ export default function Dashboard() {
             <TabsContent value="overview" className="space-y-6 animate-in fade-in-50">
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <Card className="rounded-2xl border-none shadow-sm bg-white dark:bg-zinc-950 overflow-hidden relative">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-bl-full -z-0" />
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-bl-full z-0" />
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 z-10">
                     <CardTitle className="text-sm font-medium text-zinc-500">Temperature</CardTitle>
                     <ThermometerSun className="h-4 w-4 text-amber-500" />
@@ -125,7 +133,7 @@ export default function Dashboard() {
                   </CardContent>
                 </Card>
                 <Card className="rounded-2xl border-none shadow-sm bg-white dark:bg-zinc-950 overflow-hidden relative">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 rounded-bl-full -z-0" />
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 rounded-bl-full z-0" />
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 z-10">
                     <CardTitle className="text-sm font-medium text-zinc-500">Humidity</CardTitle>
                     <Wind className="h-4 w-4 text-blue-500" />
@@ -136,7 +144,7 @@ export default function Dashboard() {
                   </CardContent>
                 </Card>
                 <Card className="rounded-2xl border-none shadow-sm bg-white dark:bg-zinc-950 overflow-hidden relative">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-yellow-500/10 rounded-bl-full -z-0" />
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-yellow-500/10 rounded-bl-full z-0" />
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 z-10">
                     <CardTitle className="text-sm font-medium text-zinc-500">Light Level (LDR)</CardTitle>
                     <Sun className="h-4 w-4 text-yellow-500" />
@@ -147,7 +155,7 @@ export default function Dashboard() {
                   </CardContent>
                 </Card>
                 <Card className="rounded-2xl border-none shadow-sm bg-white dark:bg-zinc-950 overflow-hidden relative">
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/10 rounded-bl-full -z-0" />
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/10 rounded-bl-full z-0" />
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 z-10">
                     <CardTitle className="text-sm font-medium text-zinc-500">Rain Intensity</CardTitle>
                     <CloudRain className="h-4 w-4 text-cyan-500" />
@@ -192,7 +200,7 @@ export default function Dashboard() {
                     <CardTitle>Servo Status</CardTitle>
                     <CardDescription>Current clothesline position</CardDescription>
                   </CardHeader>
-                  <CardContent className="flex flex-col items-center justify-center h-[280px]">
+                  <CardContent className="flex flex-col items-center justify-center h-70">
                     <div className={`w-40 h-40 rounded-full flex flex-col items-center justify-center border-8 ${servoState === 'extended' ? 'border-amber-400 bg-amber-50 dark:bg-amber-900/20' : 'border-zinc-300 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900'} transition-all duration-500`}>
                       <Sun className={`w-12 h-12 ${servoState === 'extended' ? 'text-amber-500' : 'text-zinc-400'} mb-2`} />
                       <span className="font-bold text-lg">{servoState === 'extended' ? 'EXTENDED' : 'RETRACTED'}</span>

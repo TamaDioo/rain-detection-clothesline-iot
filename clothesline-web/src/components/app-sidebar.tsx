@@ -7,12 +7,9 @@ import {
   Settings2,
   CloudRain,
   Sun,
-  Wind,
   Settings,
   PlayCircle,
   BarChart3,
-  ThermometerSun,
-  History,
   LayoutDashboard
 } from "lucide-react"
 
